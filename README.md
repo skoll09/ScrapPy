@@ -37,3 +37,8 @@ TP3 réalisé avec [oliduha](https://github.com/oliduha/scrappy)
 - ajout de la possibilité d'exporter dans 1 seul fichier si toutes les pages sont sélectionnée
 
 ## Captures
+
+![capture exe](/captures/scrappy.png "capture exe") 
+
+
+![capture exe deco](/captures/scrappy_no_cnx.png "capture exe deco")
