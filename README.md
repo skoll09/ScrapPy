@@ -1,0 +1,39 @@
+# ScrapPy
+First python project
+TP3 réalisé avec [oli duha](https://github.com/oli duha/scrappy)
+
+## Réalisé :
+
+- installation des packages requests et BeautifulSoup
+- scrap de la page [https://www.frameip.com/liste-des-ports-tcp-udp/]
+- scrap des pages liées (listes des ports)
+- exports en fichiers json
+- publication sur github
+
+## Plus :
+- export en fichiers csv
+- gestion connecté/déconnecté
+- affichage des headers
+- affichage des cookies
+- création de fonctions
+- gestion des exceptions
+- transformation en module et appel de celui-ci dans le main.py
+- ajout d'une interface graphique (DearPyGui)
+- ajout de contrôles :
+  - texte
+  - checkbox (avec boutons tous/aucun)
+  - lignes de séparation
+  - boutons radio (csv, json, les 2)
+  - boutons (test cnx, scrap, exit) avec tooltip
+  - fenêtres (headers, cookies)
+  - barre de progression
+  - input texte
+  - indicateur de chargement
+- gestion du layout (avec des groupes et zones fixes)
+- modification du thème
+- affichage des cookies de n'importe quel site
+- ajout d'un easter-egg
+- export du projet en exe (avec auto-py-to-exe en mode 1 fichier)
+- ajout de la possibilité d'exporter dans 1 seul fichier si toutes les pages sont sélectionnée
+
+## Captures
