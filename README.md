@@ -1,6 +1,6 @@
 # ScrapPy
 First python project
-TP3 réalisé avec [oli duha](https://github.com/oli duha/scrappy)
+TP3 réalisé avec [oliduha](https://github.com/oliduha/scrappy)
 
 ## Réalisé :
 
