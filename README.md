@@ -41,4 +41,4 @@ TP3 réalisé avec [oliduha](https://github.com/oliduha/scrappy)
 ![capture exe](https://github.com/skoll09/ScrapPy/blob/master/Capture/scrappy.png "capture exe") 
 
 
-![capture exe deco](/captures/scrappy_no_cnx.png "capture exe deco")
+![capture exe deco](https://github.com/skoll09/ScrapPy/blob/master/Capture/scrappy_no_cnx.png "capture exe deco")
