@@ -46,7 +46,7 @@ Base requise :
 
 ## Captures
 
-![capture exe](/captures/scrappy.png "capture exe") 
+![capture exe](https://github.com/skoll09/ScrapPy/blob/master/Capture/scrappy.png "capture exe") 
 
 
 ![capture exe deco](/captures/scrappy_no_cnx.png "capture exe deco")
