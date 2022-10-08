@@ -207,10 +207,7 @@ def btn_cb_none_callback():
 
 def cb_one_file_callback(sender):
     global one_file
-    if sender:
-        one_file = True
-    else:
-        one_file = False
+    one_file = dpg.get_value(sender)
 
 
 def radio_callback(sender, app_data):
