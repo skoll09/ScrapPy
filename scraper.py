@@ -7,7 +7,7 @@ try:
     import re
 
 except ImportError as e:
-    print("Erreur d'import : " + str(e))
+    print(f"Erreur d'import : {str(e)}")
     import requests
     import bs4
     import os
@@ -36,7 +36,7 @@ def scrap(links, make_csv=True, make_json=False, aio=False):
         req_scrap = requests.get(link)
 
         print()
-        print(col_yellow + "Lecture de la page : " + col_end)
+        print(f"{col_yellow}Lecture de la page :{col_end}")
         print(f"{file_name} [{links[i]}]")
 
         # On parse le html avec BeautifulSoup
@@ -64,7 +64,7 @@ def scrap(links, make_csv=True, make_json=False, aio=False):
                             list_a.append(p.text.strip())
 
         if make_csv:
-            print(col_yellow + "Préparation des donnée csv..." + col_end)
+            print(f"{col_yellow}Préparation des donnée csv...{col_end}")
             if i == 0:
                 list_csv = [list_titre]
             if aio:
@@ -75,7 +75,7 @@ def scrap(links, make_csv=True, make_json=False, aio=False):
                 list_csv += prepare_scv(list_a, file_name)
 
         if make_json:
-            print(col_yellow + "Préparation des donnée json..." + col_end)
+            print(f"{col_yellow}Préparation des donnée json...{col_end}")
             if aio:
                 dict_json = {**dict_json, **prepare_json(list_tr, file_name)}
                 file_name = "Port de 0 à 65535"
@@ -109,12 +109,12 @@ def prepare_scv(lst_a, csv_file_name):
 def create_scv(data, csv_file_name):
     csv_file_name = csv_file_name.replace(" ", "_")
     # On écrit dans le fichier csv les éléments de chaque ligne
-    with open("exports/csv/"+csv_file_name+'.csv', 'w', newline='', encoding='utf8') as csvfile:
+    with open(f"exports/csv/{csv_file_name}.csv", 'w', newline='', encoding='utf8') as csvfile:
         writer = csv.writer(csvfile, delimiter=';')
         for row in data:
             writer.writerow(row)
 
-    print(col_green + "Fichier "+csv_file_name+".csv créé !" + col_end)
+    print(f"{col_green}Fichier {csv_file_name}.csv créé !{col_end}")
 
 
 def prepare_json(list_tr, json_file_name):
@@ -150,10 +150,10 @@ def create_json(dict_json, json_file_name):
         os.makedirs("exports/json")
 
     # On écrit dans le fichier json les éléments de dict_json
-    with open("exports/json/"+json_file_name+'.json', 'w', encoding='utf8') as jsonfile:
+    with open(f"exports/json/{json_file_name}.json", 'w', encoding='utf8') as jsonfile:
         json.dump(dict_json, jsonfile, indent=4)
 
-    print(col_green + "Fichier "+json_file_name+".json créé !" + col_end)
+    print(f"{col_green}Fichier {json_file_name}.json créé !{col_end}")
 
 
 def test_cnx(url_cnx):
@@ -161,34 +161,34 @@ def test_cnx(url_cnx):
     try:
         req_test = requests.get(url_cnx)
     except requests.ConnectionError as er:
-        print(col_red + "\nErreur : Vérifiez votre connexion à Internet." + col_end)
+        print(f"{col_red}\nErreur : Vérifiez votre connexion à Internet.{col_end}")
         print(str(er))
         return False
     except requests.Timeout as er:
-        print(col_red + "Erreur : Timeout." + col_end)
+        print(f"{col_red}Erreur : Timeout.{col_end}")
         print(str(er))
         return False
     except requests.RequestException as er:
-        print(col_red + "Erreur générale." + col_end)
+        print(f"{col_red}Erreur générale.{col_end}")
         print(str(er))
         return False
     except KeyboardInterrupt:
-        print(col_yellow + "Le programme a été fermé", col_end)
+        print(f"{col_yellow}Le programme a été fermé.{col_end}")
         return False
 
     if req_test.status_code == 200:  # Si le site est en ligne
-        print(col_green + 'OK, la page est en ligne !', col_end)
+        print(f"{col_green}OK, la page est en ligne !{col_end}")
         return True
     else:
         # Si le site est en maintenance ou hors ligne
-        print(col_red + "Erreur : La page renvoi le code d'état", req_test.status_code, col_end)
+        print(f"{col_red}Erreur : La page renvoi le code d'état {req_test.status_code}{col_end}")
         return False
 
 
 def read_headers(url_h):
     req_h = requests.get(url_h)
     print()
-    print(col_yellow + "Headers :" + col_end)
+    print(f"{col_yellow}Headers : {col_end}")
     for header in req_h.headers:  # On affiche les headers
         print(header, req_h.headers[header])
     return req_h.headers
