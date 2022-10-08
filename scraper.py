@@ -109,12 +109,12 @@ def prepare_scv(lst_a, csv_file_name):
 def create_scv(data, csv_file_name):
     csv_file_name = csv_file_name.replace(" ", "_")
     # On écrit dans le fichier csv les éléments de chaque ligne
-    with open("exports/csv/"+csv_file_name+'.csv', 'w', newline='', encoding='utf8') as csvfile:
+    with open("exports/csv/" + csv_file_name + '.csv', 'w', newline='', encoding='utf8') as csvfile:
         writer = csv.writer(csvfile, delimiter=';')
         for row in data:
             writer.writerow(row)
 
-    print(col_green + "Fichier "+csv_file_name+".csv créé !" + col_end)
+    print(col_green + "Fichier " + csv_file_name + ".csv créé !" + col_end)
 
 
 def prepare_json(list_tr, json_file_name):
@@ -150,10 +150,10 @@ def create_json(dict_json, json_file_name):
         os.makedirs("exports/json")
 
     # On écrit dans le fichier json les éléments de dict_json
-    with open("exports/json/"+json_file_name+'.json', 'w', encoding='utf8') as jsonfile:
+    with open("exports/json/" + json_file_name + '.json', 'w', encoding='utf8') as jsonfile:
         json.dump(dict_json, jsonfile, indent=4)
 
-    print(col_green + "Fichier "+json_file_name+".json créé !" + col_end)
+    print(col_green + "Fichier " + json_file_name + ".json créé !" + col_end)
 
 
 def test_cnx(url_cnx):
