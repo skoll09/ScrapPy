@@ -240,34 +240,49 @@ def scrap_callback():
         dpg.delete_item("load")
     else:
         # On crée une fenêtre pour afficher la progression du scrap et le résultat final
-        with dpg.window(label="", width=420, height=150, no_resize=True, pos=(35, 80), on_close=exit_popup, modal=True):
+        with dpg.window(label="", width=426, height=170, no_resize=True, pos=(35, 80), on_close=exit_popup, modal=True):
             title_popup = dpg.add_text("Scrap en cours...", tag="title_popup")
             pb = dpg.add_progress_bar(label="progress_bar", width=400, height=20, default_value=0)
             res_grp = dpg.add_group(tag="res_grp")
             dpg.add_text("Résultat :", parent="res_grp")
         res = " => "
+        ext = 0
         if csv_flag:
             res += ".csv "
+            ext += 1
         if json_flag:
             res += ".json "
+            ext += 1
+        if ext == 0:  # Ne doit jamais arriver !
+            ext = 1
         pg_val = 0.0
-        step = 1 / len(pages_to_export)
+        step = 1 / (len(pages_to_export) * ext)
         for page in pages_to_export:
             # la barre de progression est mise à jour en fonction de la progression du scrap
             dpg.set_value(title_popup, page[1])
             dpg.configure_item(title_popup, color=(50, 150, 255, 255))
             dpg.configure_item(pb, show=True)
-            dpg.configure_item(pb, overlay=str(int(pg_val * 100)) + "%")
-            pg_val += step
             dpg.add_text(page[0] + res, parent=res_grp)
-            # name = page[0].replace(" ", "_")
-            scraper.scrap([page], csv_flag, json_flag, False)
+            if ext == 2:
+                # scrap to csv
+                scraper.scrap([page], True, False, False)
+                pg_val += step
+                dpg.set_value(pb, value=pg_val)
+                dpg.configure_item(pb, overlay=str(int(pg_val * 100)) + "%")
+                dpg.render_dearpygui_frame()
+                # scrap to json
+                scraper.scrap([page], False, True, False, ext)
+            else:
+                scraper.scrap([page], csv_flag, json_flag, False)
+            pg_val += step
             dpg.set_value(pb, value=pg_val)
+            dpg.configure_item(pb, overlay=str(int(pg_val * 100)) + "%")
             dpg.render_dearpygui_frame()
         dpg.configure_item(pb, overlay="100%")
         dpg.render_dearpygui_frame()
     elapsed = datetime.now() - start
     dpg.set_value(title_popup, f"Scrap terminé en {int(elapsed.total_seconds())}s !")
+    print(f"{col_green}Scrap terminé en {int(elapsed.total_seconds())}s !{col_end}")
     dpg.configure_item(title_popup, color=(0, 255, 0, 255))
 
 
