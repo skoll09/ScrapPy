@@ -83,7 +83,7 @@ def cookies_callback():
 def custom_cookies_callback():
     with dpg.window(label="", width=420, height=230, no_resize=True, pos=(35, 80), on_close=exit_popup, modal=True,
                     tag="custom_cookies_window", horizontal_scrollbar=True):
-        dpg.add_text("Entrer une url pour y chercher des cookies", color=(255, 255, 0, 255))
+        dpg.add_text("Entrer une URL pour y chercher des cookies", color=(255, 255, 0, 255))
         dpg.add_group(tag="grp_cust_cookies")
         dpg.add_group(tag="grp_cust_cookies_inp", parent="grp_cust_cookies", horizontal=True, horizontal_spacing=10)
         dpg.add_text("URL :", parent="grp_cust_cookies_inp")
@@ -98,12 +98,12 @@ def custom_cookies_callback():
 
 def get_custom_cookies_callback():
     url_c = dpg.get_value("cust_cookies_url_input")
-    # On vérifie si l'url saisie est correctement formatée
+    # On vérifie si l'URL saisie est correctement formatée
     url_pattern = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9() \
                   @:%_\\+.~#?&\\/=]*)$"
     if not re.match(url_pattern, url_c):  # Returns Match object
         dpg.delete_item("grp_cust_cookies_res", children_only=True)
-        dpg.add_text("Erreur : Vérifiez l'url saisie...", tag="err_txt", parent="grp_cust_cookies_res",
+        dpg.add_text("Erreur : Vérifiez l'URL saisie...", tag="err_txt", parent="grp_cust_cookies_res",
                      color=(255, 0, 0, 255))
     else:
         # on récupère les cookies
@@ -121,7 +121,7 @@ def get_custom_cookies_callback():
 def all_links_callback():
     with dpg.window(label="", width=435, height=300, no_resize=True, pos=(25, 80), on_close=exit_popup, modal=True,
                     tag="get_all_links_window", horizontal_scrollbar=True):
-        dpg.add_text("Entrer une url pour y chercher les liens", color=(255, 255, 0, 255))
+        dpg.add_text("Entrer une URL pour y chercher les liens", color=(255, 255, 0, 255))
         dpg.add_group(tag="grp_all_links")
         dpg.add_group(tag="grp_all_links_inp", parent="grp_all_links", horizontal=True, horizontal_spacing=10)
         dpg.add_text("URL :", parent="grp_all_links_inp")
@@ -134,7 +134,7 @@ def all_links_callback():
         dpg.add_group(tag="grp_all_links_res", parent="grp_all_links")
 
 
-def get_all_links_callback(sender):
+def get_all_links_callback():
     dpg.delete_item("grp_all_links_res", children_only=True)
     url_l = dpg.get_value("all_links_url_input")
     # On vérifie si l'URL saisie est correctement formatée
@@ -153,13 +153,28 @@ def get_all_links_callback(sender):
         if len(dict_links) == 1 and "ERREUR" in dict_links:
             dpg.add_text(f"ERREUR : {dict_links['ERREUR']}", parent="grp_all_links_res", color=(255, 0, 0, 255))
         elif dict_links:
-            dpg.add_text("Liens trouvés :", parent="grp_all_links_res", color=(0, 255, 0, 255))
+            dpg.add_group(tag="grp_all_links_res_head", parent="grp_all_links_res", horizontal=True)
+            dpg.add_text("Liens trouvés :", parent="grp_all_links_res_head", color=(0, 255, 0, 255))
+            dpg.add_button(tag="btn_all_links_export_csv", label="Export csv", height=22,
+                           parent="grp_all_links_res_head", callback=all_links_export_csv,
+                           user_data=[url_l, dict_links])
             for key in dict_links:
                 nbl += 1
                 dpg.add_text(f"{nbl}-[{key}] {dict_links[key]}", parent="grp_all_links_res", color=(50, 150, 255, 255))
         else:
             dpg.add_text("Cette page ne comporte aucun lien valide !)",
                          parent="grp_all_links_res", color=(255, 0, 0, 255))
+
+
+def all_links_export_csv(sender, app_data, user_data):
+    fname = user_data[0].replace("://", "_").replace(".", "_")
+    dict_links = user_data[1]
+    list_links = []
+    for key in dict_links:
+        list_links.append([key, dict_links[key]])
+    print(list_links)
+    scraper.create_scv(list_links, fname, False)
+    dpg.add_text("OK", parent="grp_all_links_res_head", color=(0, 255, 0, 255))
 
 
 def check_callback(sender, app_data, user_data):
