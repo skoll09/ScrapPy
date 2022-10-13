@@ -93,7 +93,21 @@ The basic requirements:
 - export to json files
 - publication to gitHub
 
-## More :
+![capture exe deco](https://github.com/skoll09/ScrapPy/blob/master/Capture/scrappy_no_cnx.png "capture exe deco")
+
+# English version:
+
+**User interface in french only**
+
+## Done:
+The basic requirements:
+- requests and BeautifulSoup packages install
+- scrap of the page [https://www.frameip.com/liste-des-ports-tcp-udp/]
+- scrap of linked pages (ports list)
+- export to json files
+- publication to github
+
+- virtualenv initialized
 - export to csv files
 - connected/disconnected management
 - display of headers

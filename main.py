@@ -99,6 +99,8 @@ def custom_cookies_callback():
 def get_custom_cookies_callback():
     url_c = dpg.get_value("cust_cookies_url_input")
     # On vérifie si l'URL saisie est correctement formatée
+    # print(url_c)
+    # On vérifie si l'url saisie est correctement formatée
     url_pattern = "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9() \
                   @:%_\\+.~#?&\\/=]*)$"
     if not re.match(url_pattern, url_c):  # Returns Match object
