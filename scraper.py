@@ -248,7 +248,8 @@ if __name__ == "__main__":
     url = "https://www.google.com"
     # scrap(url)
     # read_headers(url)
-    cookies(url)
+    # cookies(url)
+    all_links(url)
 ##################
 
 # Bryan ##########
